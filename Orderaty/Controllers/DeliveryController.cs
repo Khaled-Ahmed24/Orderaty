@@ -319,6 +319,7 @@ namespace Orderaty.Controllers
             var completedOrders = await db.Orders
                 .Include(o => o.Seller).ThenInclude(s => s.User)
                 .Include(o => o.Client).ThenInclude(c => c.User)
+                .Include(o => o.OrderedItems)
                 .Where(o => o.DeliveryId == user.Id && o.Status == OrderStatus.Delivered)
                 .OrderByDescending(o => o.CreatedAt)
                 .ToListAsync();
